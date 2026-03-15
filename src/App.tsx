@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Flower, ChevronLeft, Briefcase, Wallet, TrendingUp, Calendar, CheckCircle2, Construction } from 'lucide-react';
 
 // --- Types ---
-type Page = 'home' | 'business-list' | 'business-detail';
+type Page = 'home' | 'business-list' | 'business-detail' | 'tasks';
 
 interface BusinessData {
   id: string;
@@ -155,12 +155,31 @@ export default function App() {
                 </div>
                 
                 <button
-                  onClick={() => navigateTo('business-list')}
+                  onClick={() => navigateTo('tasks')}
                   className="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black text-xl uppercase tracking-widest hover:bg-yellow-300 transition-all active:scale-95 shadow-[0_15px_40px_rgba(250,204,21,0.3)]"
                 >
-                  MES BUSINESS
+                  MES TÂCHES
                 </button>
               </div>
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'tasks' && (
+          <motion.div
+            key="tasks"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title="MES TÂCHES" onBack={() => navigateTo('home')} />
+            
+            <main className="flex-grow flex flex-col items-center justify-center p-6 text-center space-y-6">
+              <div className="w-20 h-20 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-800">
+                <CheckCircle2 size={40} className="text-zinc-600" />
+              </div>
+              <p className="text-2xl font-bold text-zinc-400">Aucune tâche pour le moment.</p>
             </main>
           </motion.div>
         )}
