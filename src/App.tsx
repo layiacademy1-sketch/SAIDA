@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Flower, ChevronLeft, Briefcase, Wallet, TrendingUp, Calendar, CheckCircle2, Construction } from 'lucide-react';
 
 // --- Types ---
-type Page = 'home' | 'business-list' | 'business-detail' | 'tasks';
+type Page = 'home' | 'business-list' | 'business-detail' | 'tasks' | 'task-detail';
 
 interface BusinessData {
   id: string;
@@ -18,6 +18,26 @@ interface BusinessData {
   tasks?: string;
   isComingSoon?: boolean;
 }
+
+interface TaskData {
+  id: string;
+  name: string;
+  tag: string;
+  phone: string;
+  price: string;
+  snapchat?: string;
+}
+
+const TASKS: TaskData[] = [
+  {
+    id: 'perf-77',
+    name: 'PERF',
+    tag: 'formation Snapchat',
+    phone: 'non communiquer',
+    price: '150€',
+    snapchat: 'perf.77',
+  },
+];
 
 const BUSINESSES: BusinessData[] = [
   {
@@ -110,9 +130,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedBusiness, setSelectedBusiness] = useState<BusinessData | null>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
 
-  const navigateTo = (page: Page, business: BusinessData | null = null) => {
-    setSelectedBusiness(business);
+  const navigateTo = (page: Page, data: any = null) => {
+    if (page === 'business-detail') setSelectedBusiness(data);
+    if (page === 'task-detail') setSelectedTask(data);
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
@@ -175,11 +197,98 @@ export default function App() {
           >
             <Header title="MES TÂCHES" onBack={() => navigateTo('home')} />
             
-            <main className="flex-grow flex flex-col items-center justify-center p-6 text-center space-y-6">
-              <div className="w-20 h-20 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-800">
-                <CheckCircle2 size={40} className="text-zinc-600" />
+            <main className="p-6 space-y-4">
+              <p className="text-zinc-500 text-sm uppercase font-bold tracking-widest mb-6">Liste des tâches</p>
+              
+              <div className="grid grid-cols-1 gap-4">
+                {TASKS.map((task) => (
+                  <button
+                    key={task.id}
+                    onClick={() => navigateTo('task-detail', task)}
+                    className="group bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex items-center justify-between hover:border-yellow-400/50 transition-all active:scale-[0.98]"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-black border border-zinc-800 rounded-xl flex items-center justify-center group-hover:border-yellow-400 transition-colors">
+                        <CheckCircle2 className="text-yellow-400" size={20} />
+                      </div>
+                      <div className="flex flex-col items-start">
+                        <span className="text-xl font-black tracking-tight">{task.name}</span>
+                        <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">{task.tag}</span>
+                      </div>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center group-hover:bg-yellow-400 group-hover:text-black transition-all">
+                      <ChevronLeft size={20} className="rotate-180" />
+                    </div>
+                  </button>
+                ))}
               </div>
-              <p className="text-2xl font-bold text-zinc-400">Aucune tâche pour le moment.</p>
+
+              {TASKS.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
+                  <div className="w-20 h-20 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-800">
+                    <CheckCircle2 size={40} className="text-zinc-600" />
+                  </div>
+                  <p className="text-2xl font-bold text-zinc-400">Aucune tâche pour le moment.</p>
+                </div>
+              )}
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'task-detail' && selectedTask && (
+          <motion.div
+            key="task-detail"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title={selectedTask.name} onBack={() => navigateTo('tasks')} />
+            
+            <main className="p-6 space-y-6">
+              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[2rem] space-y-8">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-yellow-400 rounded-2xl flex items-center justify-center">
+                    <Briefcase className="text-black" size={28} />
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-black">{selectedTask.name}</h2>
+                    <span className="text-emerald-400 font-bold uppercase tracking-widest text-xs">{selectedTask.tag}</span>
+                  </div>
+                </div>
+
+                <div className="h-px bg-zinc-800 w-full" />
+
+                <div className="space-y-6">
+                  <h3 className="text-yellow-400 font-black uppercase tracking-widest text-sm">Information :</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Numéro de téléphone</span>
+                      <span className="text-xl font-bold text-white">{selectedTask.phone}</span>
+                    </div>
+
+                    {selectedTask.snapchat && (
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Snapchat</span>
+                        <span className="text-xl font-bold text-white">{selectedTask.snapchat}</span>
+                      </div>
+                    )}
+                    
+                    <div className="flex flex-col space-y-1">
+                      <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Prix Devis</span>
+                      <span className="text-3xl font-black text-yellow-400">{selectedTask.price}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl flex items-center space-x-4">
+                <div className="w-10 h-10 bg-emerald-400/10 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="text-emerald-400" size={20} />
+                </div>
+                <p className="text-zinc-400 text-sm font-medium">Tâche en cours de traitement</p>
+              </div>
             </main>
           </motion.div>
         )}
