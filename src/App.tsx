@@ -26,6 +26,7 @@ interface TaskData {
   phone: string;
   price: string;
   snapchat?: string;
+  lastInfo?: string;
 }
 
 const TASKS: TaskData[] = [
@@ -36,6 +37,7 @@ const TASKS: TaskData[] = [
     phone: 'non communiquer',
     price: '150€',
     snapchat: 'perf.77',
+    lastInfo: 'Layi l’a contacté sur Snapchat et il a un rendez-vous avec lui le 17 mars 2026 pour faire un point sur son Snapchat. Il est possible qu’il paie à ce moment-là.',
   },
 ];
 
@@ -279,6 +281,15 @@ export default function App() {
                       <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Prix Devis</span>
                       <span className="text-3xl font-black text-yellow-400">{selectedTask.price}</span>
                     </div>
+
+                    {selectedTask.lastInfo && (
+                      <div className="flex flex-col space-y-2 pt-4">
+                        <span className="text-yellow-400 text-xs font-bold uppercase tracking-wider">Dernières infos :</span>
+                        <p className="text-zinc-300 text-sm leading-relaxed bg-black/30 p-4 rounded-xl border border-zinc-800/50">
+                          {selectedTask.lastInfo}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
