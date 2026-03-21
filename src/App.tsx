@@ -31,13 +31,22 @@ interface TaskData {
 
 const TASKS: TaskData[] = [
   {
-    id: 'perf-77',
-    name: 'PERF',
-    tag: 'formation Snapchat',
+    id: 'thibault',
+    name: 'THIBAULT',
+    tag: 'Création de site internet vitrine',
     phone: 'non communiquer',
-    price: '150€',
-    snapchat: 'perf.77',
-    lastInfo: 'Layi l’a contacté sur Snapchat et il a un rendez-vous avec lui le 17 mars 2026 pour faire un point sur son Snapchat. Il est possible qu’il paie à ce moment-là.',
+    price: '99,99€',
+    snapchat: 'tidji76',
+    lastInfo: 'En attente de recevoir tout les donner pour la création du site.',
+  },
+  {
+    id: 'diawara',
+    name: 'DIAWARA',
+    tag: 'Formation snapchat',
+    phone: 'non communiquer',
+    price: '129,99€',
+    snapchat: 'miro.gdd',
+    lastInfo: 'Formation snapchat planifier pour le 26 mars.',
   },
 ];
 
