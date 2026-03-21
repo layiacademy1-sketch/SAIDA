@@ -183,19 +183,11 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-zinc-500 uppercase text-xs font-bold tracking-widest">Total généré depuis le début</p>
-                  <p className="text-5xl font-black">0 €</p>
+                  <p className="text-5xl font-black">60 €</p>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-5 bg-zinc-900 rounded-2xl border border-zinc-800">
-                  <div className="flex items-center space-x-3">
-                    <Wallet className="text-yellow-400" size={22} />
-                    <span className="text-zinc-400 font-bold uppercase text-xs tracking-wider">Disponible à retirer</span>
-                  </div>
-                  <span className="text-2xl font-black text-yellow-400">0 €</span>
-                </div>
-                
                 <button
                   onClick={() => navigateTo('tasks')}
                   className="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black text-xl uppercase tracking-widest hover:bg-yellow-300 transition-all active:scale-95 shadow-[0_15px_40px_rgba(250,204,21,0.3)]"
