@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Flower, ChevronLeft, Briefcase, Wallet, TrendingUp, Calendar, CheckCircle2, Construction } from 'lucide-react';
 
 // --- Types ---
-type Page = 'home' | 'business-list' | 'business-detail' | 'tasks' | 'task-detail';
+type Page = 'home' | 'business-list' | 'business-detail' | 'tasks' | 'task-detail' | 'infos-utiles' | 'rib-detail' | 'appointments' | 'appointment-detail';
 
 interface BusinessData {
   id: string;
@@ -78,6 +78,48 @@ const BUSINESSES: BusinessData[] = [
     monthTotal: '0 €',
     weekTotal: '0 €',
     isComingSoon: true,
+  },
+];
+
+const APPOINTMENTS = [
+  { 
+    id: 'paris-trip', 
+    date: '3 avril au 5 avril 2026', 
+    title: 'PARIS',
+    program: [
+      {
+        day: '3 avril',
+        items: [
+          { label: 'Hôtel', value: 'Choisy' },
+          { label: 'Restaurant', value: 'La céleste' },
+          { label: 'Sorti', value: '' },
+        ]
+      },
+      {
+        day: '4 avril',
+        items: [
+          { label: 'Brunch', value: 'olaya bakery' },
+          { label: 'Sorti', value: '' },
+          { label: 'Goûter', value: '' },
+          { label: 'Hôtel', value: 'Choisy' },
+          { label: 'Repos', value: '' },
+          { label: 'Restaurant', value: 'Food lover Paris' },
+          { label: 'Sorti', value: '' },
+        ]
+      },
+      {
+        day: '5 avril',
+        items: [
+          { label: 'Brunch', value: 'Marvely brunch' },
+          { label: 'Sorti', value: '' },
+          { label: 'Goûter', value: '' },
+          { label: 'Hôtel', value: 'Choisy' },
+          { label: 'Repos', value: '' },
+          { label: 'Restaurant', value: '' },
+          { label: 'Sorti', value: '' },
+        ]
+      }
+    ]
   },
 ];
 
@@ -151,10 +193,12 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [selectedBusiness, setSelectedBusiness] = useState<BusinessData | null>(null);
   const [selectedTask, setSelectedTask] = useState<TaskData | null>(null);
+  const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
 
   const navigateTo = (page: Page, data: any = null) => {
     if (page === 'business-detail') setSelectedBusiness(data);
     if (page === 'task-detail') setSelectedTask(data);
+    if (page === 'appointment-detail') setSelectedAppointment(data);
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
@@ -183,7 +227,7 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-zinc-500 uppercase text-xs font-bold tracking-widest">Total généré depuis le début</p>
-                  <p className="text-5xl font-black">60 €</p>
+                  <p className="text-5xl font-black">120 €</p>
                 </div>
               </div>
 
@@ -193,6 +237,20 @@ export default function App() {
                   className="w-full bg-yellow-400 text-black py-5 rounded-2xl font-black text-xl uppercase tracking-widest hover:bg-yellow-300 transition-all active:scale-95 shadow-[0_15px_40px_rgba(250,204,21,0.3)]"
                 >
                   MES TÂCHES
+                </button>
+
+                <button
+                  onClick={() => navigateTo('infos-utiles')}
+                  className="w-full bg-sky-400 text-black py-5 rounded-2xl font-black text-xl uppercase tracking-widest hover:bg-sky-300 transition-all active:scale-95 shadow-[0_15px_40px_rgba(56,189,248,0.3)]"
+                >
+                  INFOS UTILES
+                </button>
+
+                <button
+                  onClick={() => navigateTo('appointments')}
+                  className="w-full bg-zinc-800 text-yellow-400 py-5 rounded-2xl font-black text-xl uppercase tracking-widest hover:bg-zinc-700 transition-all active:scale-95 border border-zinc-700"
+                >
+                  Rendez-vous
                 </button>
               </div>
             </main>
@@ -224,8 +282,11 @@ export default function App() {
                         <CheckCircle2 className="text-yellow-400" size={20} />
                       </div>
                       <div className="flex flex-col items-start">
-                        <span className="text-xl font-black tracking-tight">{task.name}</span>
-                        <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">{task.tag}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-xl font-black tracking-tight">{task.name}</span>
+                          <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-full uppercase tracking-tighter">tache effectuer</span>
+                        </div>
+                        <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider">{task.tag}</span>
                       </div>
                     </div>
                     <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center group-hover:bg-yellow-400 group-hover:text-black transition-all">
@@ -265,7 +326,7 @@ export default function App() {
                   </div>
                   <div>
                     <h2 className="text-3xl font-black">{selectedTask.name}</h2>
-                    <span className="text-emerald-400 font-bold uppercase tracking-widest text-xs">{selectedTask.tag}</span>
+                    <span className="text-yellow-400 font-bold uppercase tracking-widest text-xs">{selectedTask.tag}</span>
                   </div>
                 </div>
 
@@ -309,6 +370,129 @@ export default function App() {
                   <CheckCircle2 className="text-emerald-400" size={20} />
                 </div>
                 <p className="text-zinc-400 text-sm font-medium">Tâche en cours de traitement</p>
+              </div>
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'appointments' && (
+          <motion.div
+            key="appointments"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title="RENDEZ-VOUS" onBack={() => navigateTo('home')} />
+            <main className="p-6 space-y-4">
+              {APPOINTMENTS.map((apt) => (
+                <button 
+                  key={apt.id} 
+                  onClick={() => navigateTo('appointment-detail', apt)}
+                  className="w-full bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex items-center justify-between hover:border-yellow-400/50 transition-all active:scale-[0.98]"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-yellow-400/10 rounded-xl flex items-center justify-center">
+                      <Calendar className="text-yellow-400" size={24} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-yellow-400 font-black text-lg">{apt.date}</p>
+                      <p className="text-zinc-400 text-sm font-bold uppercase tracking-wider">{apt.title}</p>
+                    </div>
+                  </div>
+                  <ChevronLeft size={20} className="rotate-180 text-zinc-600" />
+                </button>
+              ))}
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'appointment-detail' && selectedAppointment && (
+          <motion.div
+            key="appointment-detail"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title={selectedAppointment.title} onBack={() => navigateTo('appointments')} />
+            <main className="p-6 space-y-6">
+              {selectedAppointment.program.map((day: any, idx: number) => (
+                <div key={idx} className="bg-zinc-900 border border-zinc-800 p-8 rounded-[2rem] space-y-6">
+                  <h2 className="text-2xl font-black text-yellow-400 border-b border-zinc-800 pb-4">{day.day}</h2>
+                  <div className="grid grid-cols-1 gap-4">
+                    {day.items.map((item: any, i: number) => (
+                      <div key={i} className="flex flex-col space-y-1">
+                        <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">{item.label}</span>
+                        <span className="text-lg font-bold text-white">{item.value || '—'}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'infos-utiles' && (
+          <motion.div
+            key="infos-utiles"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title="INFOS UTILES" onBack={() => navigateTo('home')} />
+            <main className="p-6 space-y-4">
+              <button
+                onClick={() => navigateTo('rib-detail')}
+                className="w-full bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex items-center justify-between hover:border-sky-400/50 transition-all active:scale-[0.98]"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-sky-400/10 rounded-xl flex items-center justify-center">
+                    <Wallet className="text-sky-400" size={24} />
+                  </div>
+                  <span className="text-xl font-black tracking-tight">RIB pour paiement</span>
+                </div>
+                <ChevronLeft size={20} className="rotate-180 text-zinc-600" />
+              </button>
+            </main>
+          </motion.div>
+        )}
+
+        {currentPage === 'rib-detail' && (
+          <motion.div
+            key="rib-detail"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="flex flex-col min-h-screen"
+          >
+            <Header title="RIB" onBack={() => navigateTo('infos-utiles')} />
+            <main className="p-6">
+              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-[2rem] space-y-8">
+                <div className="flex items-center space-x-4">
+                  <div className="w-14 h-14 bg-sky-400 rounded-2xl flex items-center justify-center">
+                    <Wallet className="text-black" size={28} />
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-black">RIB Officiel</h2>
+                    <span className="text-sky-400 font-bold uppercase tracking-widest text-xs">Paiement Sécurisé</span>
+                  </div>
+                </div>
+                <div className="h-px bg-zinc-800 w-full" />
+                <div className="space-y-6">
+                  <div className="flex flex-col space-y-1">
+                    <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Nom du compte</span>
+                    <span className="text-2xl font-bold text-white">LAYI ACADEMY</span>
+                  </div>
+                  <div className="flex flex-col space-y-2">
+                    <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Numéro RIB</span>
+                    <div className="bg-black/30 p-6 rounded-xl border border-zinc-800/50 break-all">
+                      <span className="text-2xl font-mono font-bold text-white tracking-wider">FR76 1695 8000 0164 1390 8711 383</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </main>
           </motion.div>
