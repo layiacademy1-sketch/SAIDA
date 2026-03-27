@@ -31,31 +31,31 @@ interface TaskData {
 
 const TASKS: TaskData[] = [
   {
-    id: 'perf-77',
-    name: 'PERF',
-    tag: 'formation Snapchat',
-    phone: 'non communiquer',
-    price: '150€',
-    snapchat: 'perf.77',
-    lastInfo: 'Layi l’a contacté sur Snapchat et il a un rendez-vous avec lui le 17 mars 2026 pour faire un point sur son Snapchat. Il est possible qu’il paie à ce moment-là. Il nous a contactés le samedi 21 mars pour nous dire qu’il faut que nous nous contactions le 22 mars afin qu’il paie.',
-  },
-  {
-    id: 'thibault',
-    name: 'THIBAULT',
-    tag: 'Création de site internet vitrine',
-    phone: 'non communiquer',
-    price: '99,99€',
-    snapchat: 'tidji76',
-    lastInfo: 'En attente de recevoir tout les donner pour la création du site.',
-  },
-  {
-    id: 'diawara',
-    name: 'DIAWARA',
+    id: 'zakaria',
+    name: 'ZAKARIA',
     tag: 'Formation snapchat',
     phone: 'non communiquer',
     price: '129,99€',
-    snapchat: 'miro.gdd',
-    lastInfo: 'Formation snapchat planifier pour le 26 mars.',
+    snapchat: 'madineka',
+    lastInfo: 'il a dejà payer formation dejà planifier.',
+  },
+  {
+    id: 'ines',
+    name: 'INES',
+    tag: 'Formation snapchat',
+    phone: 'non communiquer',
+    price: '129,99€',
+    snapchat: 'iam_nessou',
+    lastInfo: 'il a dejà payer formation dejà planifier.',
+  },
+  {
+    id: 'imene',
+    name: 'IMENE',
+    tag: 'Formation snapchat',
+    phone: 'non communiquer',
+    price: '129,99€',
+    snapchat: 't.imene93',
+    lastInfo: 'il a dejà payer formation dejà planifier.',
   },
 ];
 
@@ -99,24 +99,18 @@ const APPOINTMENTS = [
         day: '4 avril',
         items: [
           { label: 'Brunch', value: 'olaya bakery' },
-          { label: 'Sorti', value: '' },
-          { label: 'Goûter', value: '' },
+          { label: 'Sorti', value: 'Visite Paris 2ᵉ arrondissement' },
+          { label: 'Goûter', value: 'TEMA’S CAKE de CRÉTEIL SOLEIL' },
           { label: 'Hôtel', value: 'Choisy' },
           { label: 'Repos', value: '' },
           { label: 'Restaurant', value: 'Food lover Paris' },
-          { label: 'Sorti', value: '' },
+          { label: 'Sorti', value: 'Sortie quad (à confirmer), visite tour Eiffel' },
         ]
       },
       {
         day: '5 avril',
         items: [
           { label: 'Brunch', value: 'Marvely brunch' },
-          { label: 'Sorti', value: '' },
-          { label: 'Goûter', value: '' },
-          { label: 'Hôtel', value: 'Choisy' },
-          { label: 'Repos', value: '' },
-          { label: 'Restaurant', value: '' },
-          { label: 'Sorti', value: '' },
         ]
       }
     ]
@@ -227,7 +221,7 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-zinc-500 uppercase text-xs font-bold tracking-widest">Total généré depuis le début</p>
-                  <p className="text-5xl font-black">120 €</p>
+                  <p className="text-5xl font-black">210 €</p>
                 </div>
               </div>
 
@@ -284,7 +278,7 @@ export default function App() {
                       <div className="flex flex-col items-start">
                         <div className="flex items-center space-x-2">
                           <span className="text-xl font-black tracking-tight">{task.name}</span>
-                          <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-full uppercase tracking-tighter">tache effectuer</span>
+                          <span className="text-[10px] font-bold bg-red-500/10 text-red-500 px-2 py-0.5 rounded-full uppercase tracking-tighter">tache à effectuer</span>
                         </div>
                         <span className="text-xs font-bold text-yellow-400 uppercase tracking-wider">{task.tag}</span>
                       </div>
@@ -489,7 +483,7 @@ export default function App() {
                   <div className="flex flex-col space-y-2">
                     <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider">Numéro RIB</span>
                     <div className="bg-black/30 p-6 rounded-xl border border-zinc-800/50 break-all">
-                      <span className="text-2xl font-mono font-bold text-white tracking-wider">FR76 1695 8000 0164 1390 8711 383</span>
+                      <span className="text-2xl font-mono font-bold text-white tracking-wider">FR7616958000016413908711383</span>
                     </div>
                   </div>
                 </div>
