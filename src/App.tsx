@@ -31,19 +31,19 @@ interface TaskData {
 
 const TASKS: TaskData[] = [
   {
-    id: 'nassur',
-    name: 'NASSUR',
+    id: 'mathieu',
+    name: 'MATHIEU',
     tag: 'Formation snapchat',
-    phone: '0765254356',
-    price: '149,99€',
+    phone: '0743562430',
+    price: '99,99€',
     lastInfo: 'il a dejà payer formation dejà planifier.',
   },
   {
-    id: 'laurent',
-    name: 'LAURENT',
+    id: 'damien',
+    name: 'DAMIEN',
     tag: 'Formation snapchat',
-    phone: '0615155420',
-    price: '149,99€',
+    phone: '0723667823',
+    price: '99,99€',
     lastInfo: 'il a dejà payer formation dejà planifier.',
   },
 ];
@@ -210,7 +210,7 @@ export default function App() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-zinc-500 uppercase text-xs font-bold tracking-widest">Total généré depuis le début</p>
-                  <p className="text-5xl font-black">250 €</p>
+                  <p className="text-5xl font-black">390 €</p>
                 </div>
               </div>
 
